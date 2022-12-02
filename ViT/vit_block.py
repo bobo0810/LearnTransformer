@@ -6,8 +6,8 @@ from colossalai import nn as col_nn
 from colossalai.nn.layer.utils import CheckpointModule
 from torch import dtype, nn
 
-from titans.layer.attention import ViTSelfAttention
-from titans.layer.mlp import ViTMLP
+from .vit_attention import ViTSelfAttention
+from .vit_mlp import ViTMLP
 from titans.decorator import support_tp_pp_only
 
 

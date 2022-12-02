@@ -7,8 +7,8 @@ from colossalai.nn.layer.utils import CheckpointModule
 from torch import dtype, nn
 
 from titans.layer.embedding import ViTEmbedding
-from titans.layer.head import ViTHead
-from titans.layer.block import ViTBlock
+from .vit_head import ViTHead
+from .vit_block import ViTBlock
 from titans.decorator import no_support
 
 __all__ = [
