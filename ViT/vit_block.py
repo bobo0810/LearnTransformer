@@ -51,7 +51,7 @@ class ViTBlock(CheckpointModule):
 
     def _forward(self, x):
         # the size of x is (BATCH_SZIE, SEQ_LEN, HIDDEN_SIZE)
-        # [batch,196,768]  Norm->多头自注意力->Dropout->残差
+        # [batch,197,768]  Norm->多头自注意力->Dropout->残差
         x = x + self.drop_path(self.attn(self.norm1(x)))
         # the size of x after attn is (BATCH_SZIE, SEQ_LEN, HIDDEN_SIZE)
         # Norm->MLP->Dropout->残差

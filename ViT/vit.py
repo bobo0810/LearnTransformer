@@ -6,7 +6,7 @@ from colossalai import nn as col_nn
 from colossalai.nn.layer.utils import CheckpointModule
 from torch import dtype, nn
 
-from titans.layer.embedding import ViTEmbedding
+from .vit_embedding import ViTEmbedding
 from .vit_head import ViTHead
 from .vit_block import ViTBlock
 from titans.decorator import no_support
@@ -120,7 +120,7 @@ class VisionTransformer(nn.Module):
     def forward(self, x):
         # the size of x is (BATCH_SIZE, IN_CHAN, IMAGE_SIZE, IMAGE_SIZE)
         # 对输入图像进行分块和展平操作
-        # 输入[batch,3,224,224]   输出[batch,196,768]
+        # 输入[batch,3,224,224]   输出[batch,196+1,768]
         x = self.embed(x)
         # 通过TransformerEncoder提取深层特征  特征尺度不变
         # the size of x after embed layer is (BATCH_SIZE, SEQ_LEN, HIDDEN_SIZE)

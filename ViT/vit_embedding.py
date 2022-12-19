@@ -44,8 +44,8 @@ class ViTEmbedding(nn.Module):
     def forward(self, x):
         # the size of x before embed is (BATCH_SIZE, IN_CHAN, IMAGE_SIZE, IMAGE_SIZE)
         # the size of x after embedding is (BATCH_SIZE, SEQ_LEN, HIDDEN_SIZE)
-        # 以16x16patch为例，224x224图像被分为14x14=196个pacth   每个patch（3x16x16=768）再通过线性层映射为768维特征
-        # 输入[batch,3,224,224]   输出[batch,196,768]
+        # 以16x16patch为例，224x224图像被分为14x14=197个pacth   每个patch（3x16x16=768）再通过线性层映射为768维特征
+        # 输入[batch,3,224,224]   输出[batch,197,768]
         x = self.patch_embed(x)
         x = self.dropout(x)
         return x

@@ -8,11 +8,33 @@
 - [ViT论文精读视频-沐神团队](https://www.bilibili.com/video/BV15P4y137jb/?spm_id_from=pageDriver&vd_source=867a12dbe5f2199cb2f7283321debf90)
 - 欢迎提issues,共同讨论！
 
-整体框架如图
+## 整体框架
 
 ![](imgs/ViT.jpeg)
 
+## ViTEmbedding
 
+Linear Projection of Flattened Patches作用：线性投射层，将输入图像划分为patch，再通过线性层映射为768维token。
+
+![](imgs/ViTEmbedding.jpeg)
+
+## Multi-Head Attention
+
+多头自注意力作用：多个头提供模式各异的特征,类似卷积的多通道。
+
+![MultiHead](imgs/MultiHead.jpeg)
+
+## MLP
+
+作用：先升维再降维，提取深层特征。
+
+![MLP](imgs/MLP.jpeg)
+
+## MLP Head  
+
+作用：输出分类结果
+
+![](imgs/MLPHead.jpeg)
 
 ### 参考
 - [Vision Transformer的原理和代码解读](https://zhuanlan.zhihu.com/p/431935786)

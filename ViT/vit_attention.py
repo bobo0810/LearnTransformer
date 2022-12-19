@@ -42,18 +42,18 @@ class ViTSelfAttention(nn.Module):
     def forward(self, x):
         # the size of x is (BATCH_SIZE, SEQ_LEN, HIDDEN_SIZE)
         # the size of qkv is (BATCH_SIZE, SEQ_LEN, HIDDEN_SIZE*3)
-        # x通过线性层生成qkv    [batch,196,768]->[batch,196,768*3]
+        # x通过线性层生成qkv    [batch,197,768]->[batch,197,768*3]
         qkv = self.query_key_value(x)
         all_head_size = qkv.shape[-1] // 3 # 768
         num_attention_heads = all_head_size // self.attention_head_size # 头的数量 12
-        # [batch,196,768*3] -> [batch,196,12,3*64] 12个头，每个头包含 维度均为64的QKV三个特征
+        # [batch,197,768*3] -> [batch,197,12,3*64] 12个头，每个头包含 维度均为64的QKV三个特征
         new_qkv_shape = qkv.shape[:-1] + \
             (num_attention_heads, 3 * self.attention_head_size)
         qkv = qkv.view(new_qkv_shape)
-        # [batch,196,12,3*64]  -> [batch,12,196,3*64]
+        # [batch,197,12,3*64]  -> [batch,12,197,3*64]
         qkv = qkv.permute((0, 2, 1, 3))
         # the size of q is (BATCH_SZIE, NUM_HEADS, SEQ_LEN, HIDDEN_SIZE//NUM_HEADS)
-        # 按最后一维拆分为3块，得到q k v,三者尺寸相同  均为[batch,12,196,64]
+        # 按最后一维拆分为3块，得到q k v,三者尺寸相同  均为[batch,12,197,64]
         q, k, v = torch.chunk(qkv, 3, dim=-1)
         # the size of x is (BATCH_SIZE, NUM_HEADS, SEQ_LEN, SEQ_LEN)
         # q矩阵 和 k矩阵的转置 相乘，得到两者之间的相似度
@@ -65,6 +65,7 @@ class ViTSelfAttention(nn.Module):
         x = self.attention_dropout(x)
 
         # the size of x after matmul is (BATCH_SZIE, NUM_HEADS, SEQ_LEN, HIDDEN_SIZE//NUM_HEADS)
+        # [batch,12,197,64]
         x = torch.matmul(x, v)
         x = x.transpose(1, 2)
         new_context_layer_shape = x.size()[:-2] + (all_head_size,)

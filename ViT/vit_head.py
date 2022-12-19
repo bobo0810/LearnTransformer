@@ -34,7 +34,7 @@ class ViTHead(nn.Module):
 
     def forward(self, x):
         # the size of x is (BATCH_SIZE, SEQ_LEN, HIDDEN_SIZE)
-        # 取位置0的特征即可（自注意力使得其包含了全局特征） [batch,196,768]->[batch,768]
+        # 取位置0的特征即可（自注意力使得其包含了全局特征） [batch,197,768]->[batch,768]
         x = x[:, 0]
         # the size of x is (BATCH_SIZE, HIDDEN_SIZE)
         if self.representation is not None:
