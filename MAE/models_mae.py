@@ -54,7 +54,7 @@ class MaskedAutoencoderViT(nn.Module):
         # MAE 解码器部分
         # 解码器的嵌入映射 768->512
         self.decoder_embed = nn.Linear(embed_dim, decoder_embed_dim, bias=True)
-        # [1,1,512]
+        # 可学习参数[1,1,512]   解码器中充当已mask的patch特征，被解码器重建
         self.mask_token = nn.Parameter(torch.zeros(1, 1, decoder_embed_dim))
         # 解码器位置编码参数[1，197，512] 固定参数，不更新
         self.decoder_pos_embed = nn.Parameter(torch.zeros(1, num_patches + 1, decoder_embed_dim), requires_grad=False)  # fixed sin-cos embedding
@@ -215,7 +215,7 @@ class MaskedAutoencoderViT(nn.Module):
         # 解码器的嵌入映射 [batch,50,768]->[batch,50,512]
         x = self.decoder_embed(x)
 
-        # append mask tokens to sequence [batch,147,512]  196+1-50=147（147个mask的patch，1个位置0编码，49个未mask的patch）
+        # append mask tokens to sequence [batch,147,512]  196+1-50=147（147个已mask的patch，1个位置0编码，49个未mask的patch）
         mask_tokens = self.mask_token.repeat(x.shape[0], ids_restore.shape[1] + 1 - x.shape[1], 1)
         # 除了位置0，将编码器输出的特征x 和 mask token拼接合并，得到整图的嵌入特征 [batch,196,768]
         x_ = torch.cat([x[:, 1:, :], mask_tokens], dim=1)  # no cls token
