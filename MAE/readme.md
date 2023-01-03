@@ -13,13 +13,15 @@
 
 ## 整体框架
 
-<img src="imgs/overall_framework.png" width="100px">
+<img src="imgs/overall_framework.png" width="300px">
 
 ## patch_embed
 
 图像映射为patch token
 
-<img src="imgs/patch_embed.jpeg" width="100px">
+<img src="imgs/patch_embed.jpeg"  width=50%>
+
+
 
 
 
