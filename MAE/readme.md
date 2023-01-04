@@ -9,17 +9,15 @@
   > 直接断点调试models_mae.py即可
 
 - [MAE论文精读视频-沐神](https://www.bilibili.com/video/BV1sq4y1q77t/?spm_id_from=333.337.search-card.all.click&vd_source=867a12dbe5f2199cb2f7283321debf90)
-- 欢迎提issues,共同讨论！
 
 ## 整体框架
 
-<img src="imgs/overall_framework.png" width="300px">
+<img src="imgs/overall_framework.png" width=50%>
 
-## patch_embed
 
-图像映射为patch token
+## 编码器
 
-<img src="imgs/patch_embed.jpeg"  width=50%>
+<img src="imgs/encoder.jpeg"  width=80%>
 
 
 
