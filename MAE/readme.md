@@ -17,11 +17,10 @@
 
 ## 编码器
 
-<img src="imgs/encoder.jpeg"  width=80%>
+<img src="imgs/encoder.jpeg"  width=85%>
 
 
 ## 解码器
 
-<img src="imgs/decoder.jpg"  width=80%>
-
+<img src="imgs/decoder.jpeg"  width=70%>
 
