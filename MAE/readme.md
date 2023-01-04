@@ -12,7 +12,7 @@
 
 ## 整体框架
 
-<img src="imgs/overall_framework.png" width=50%>
+<img src="imgs/overall_framework.png" width=70%>
 
 
 ## 编码器
@@ -20,6 +20,8 @@
 <img src="imgs/encoder.jpeg"  width=80%>
 
 
+## 解码器
 
+<img src="imgs/decoder.jpg"  width=80%>
 
 

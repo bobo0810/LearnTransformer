@@ -217,11 +217,11 @@ class MaskedAutoencoderViT(nn.Module):
 
         # append mask tokens to sequence [batch,147,512]  196+1-50=147（147个已mask的patch，1个位置0编码，49个未mask的patch）
         mask_tokens = self.mask_token.repeat(x.shape[0], ids_restore.shape[1] + 1 - x.shape[1], 1)
-        # 除了位置0，将编码器输出的特征x 和 mask token拼接合并，得到整图的嵌入特征 [batch,196,768]
+        # 除了位置0，将编码器输出的特征x 和 mask token拼接合并，得到整图的嵌入特征 [batch,196,512]
         x_ = torch.cat([x[:, 1:, :], mask_tokens], dim=1)  # no cls token
         # 根据重建索引，将整图的嵌入特征 还原回 原图mask时的对应位置。
         x_ = torch.gather(x_, dim=1, index=ids_restore.unsqueeze(-1).repeat(1, 1, x.shape[2]))  # unshuffle
-        # 补上位置0编码  [batch,196,768]->[batch,197,768]
+        # 补上位置0编码  [batch,196,512]->[batch,197,512]
         x = torch.cat([x[:, :1, :], x_], dim=1)  # append cls token
 
         # add pos embed
