@@ -20,7 +20,9 @@
 # Transformer
 
 ## MultiHeadAttention
-[源码注释](./Transformer/MultiHeadAttention.py) 
+[CrossAttention源码注释,其实就是QKV加权](Transformer/CrossAttention.py)
+
+[MHA源码注释](./Transformer/MultiHeadAttention.py) 
 
 
 <img src="Transformer/mha.jpg" width = "1200"   align=center />
