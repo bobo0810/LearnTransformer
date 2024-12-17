@@ -24,15 +24,17 @@ class MultiHeadAttention(nn.Module):
 
     def forward(self, hidden_state, attention_mask=None):
         batch_size = hidden_state.size()[0]
+        # 1. 输入映射到QKV
         query = self.q_proj(hidden_state)
         key = self.k_proj(hidden_state)
         value = self.v_proj(hidden_state)
+        # 2. 维度切分：将输入分割成多头的表示，并通过permute进行维度重排
         query, key, value = (
             self.split(query, batch_size),
             self.split(key, batch_size),
             self.split(value, batch_size),
         )
-        # transpose交换张量维度，相比permute只能交换两个
+        # 3. 计算注意力得分
         attention_scores = torch.matmul(query, key.transpose(-1, -2)) / torch.sqrt(
             torch.tensor(self.head_dim)
         )
@@ -44,6 +46,8 @@ class MultiHeadAttention(nn.Module):
         # attention_scores维度（batch_size, num_heads, seq_len, seq_len）
         # attention_probs维度（batch_size, num_heads, seq_len, seq_len）
         attention_probs = torch.softmax(attention_scores, dim=-1)
+        
+        # 4. 上下文表示:利用注意力权重加权value，重排输出维度，并通过out_proj输出最终结果
         output = torch.matmul(attention_probs, value)
         # output维度（batch_size, seq_len, head_dim）
         output = (
